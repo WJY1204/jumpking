@@ -4,79 +4,106 @@ using UnityEngine;
 
 public class Jumpking : MonoBehaviour
 {
-    public float walkSpeed;
-    private float moveInput;
+    [Header("Ground Checks")]
     public bool isGrounded;
-    private Rigidbody2D rb;
+    public float checkRadius = 0.2f;
+    public Transform groundCheck;
     public LayerMask groundMask;
 
+    [Header("Mat")]
     public PhysicsMaterial2D bounceMat, normalMat;
-    public bool canJump = true;
-    public float jumpValue = 0.0f;
+
+    [Header("Attritubes")]
+    public float activeMoveSpeed;
+    public float jumpYMultiplier;
+    public float jumpXMultiplier;
+
+    public float maxXStrenth, maxYStrenth;
+    
+    private float jumpStrength;
+    private float jumpX;
+    private int dir = 1;
+    private bool isJumping = false;
+
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        dir = 1;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        moveInput = Input.GetAxisRaw("Horizontal");
+    {   
+        isGrounded = Physics2D.OverlapCircle(
+            groundCheck.position,
+            checkRadius,
+            groundMask
+        );
         
-        if(jumpValue == 0.0f && isGrounded)
+        // ChangeMat();
+
+        if(isGrounded)
         {
-            rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
+            float input = Input.GetAxisRaw("Horizontal");
+            
+            if(input > 0 ) dir = 1;
+            else if(input < 0) dir = -1;
+
+            transform.localScale = new Vector3(dir, 1f, 1f);
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                rb.velocity = new Vector3(0f, 0f, 0f);
+                jumpStrength += (Time.deltaTime * jumpYMultiplier * 2);
+                jumpX += (Time.deltaTime * jumpXMultiplier * 2);
+            }
+            else if (Input.GetButtonUp("Jump"))
+            {
+                isJumping = true;
+
+                if (jumpStrength > maxYStrenth)
+                    jumpStrength = maxYStrenth;
+                if (jumpStrength < 100)
+                    jumpStrength = 100;
+                if (jumpX > maxXStrenth)
+                    jumpX = maxXStrenth;
+                
+                rb.AddForce(
+                    new Vector2(dir*jumpX, jumpStrength), 
+                    ForceMode2D.Impulse
+                );
+                // rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+                
+                Debug.Log("X velocity : " + rb.velocity.x);
+                Debug.Log(jumpStrength);
+                
+                jumpX = 0f;
+                jumpStrength = 0f;
+            }
+            else if(isJumping == false)
+            {
+                rb.velocity = new Vector2(activeMoveSpeed * input,rb.velocity.y);
+            }
+
+            if(rb.velocity.y <= 0 && isJumping)
+                isJumping = false;
         }
+    }
 
-        rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
-
-        isGrounded = Physics2D.OverlapBox(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f),
-        new Vector2(0.9f, 0.4f), 0f, groundMask);
-
-        if(jumpValue > 0)
-        {
-            rb.sharedMaterial = bounceMat;
-        }
-        else 
+    public void ChangeMat()
+    {
+        if(isGrounded)
         {
             rb.sharedMaterial = normalMat;
         }
-
-        if(Input.GetKey("space") && isGrounded && canJump){
-            jumpValue += 0.1f;
+        else
+        {   
+            rb.sharedMaterial = bounceMat;
         }
-
-        if(Input.GetKeyDown("space") && isGrounded && canJump)
-        {
-            rb.velocity = new Vector2(0.0f, rb.velocity.y);
-        }
-        if(jumpValue >= 20f && isGrounded){
-            float tempx = moveInput * walkSpeed;
-            float tempy = jumpValue;
-            rb.velocity = new Vector2(tempx, tempy);
-            Invoke("ResetJump", 0.2f);
-        }
-
-         if(Input.GetKeyUp("space"))
-    {
-            if(isGrounded)
-            {
-                rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
-                jumpValue = 0.0f;
-            }
-        canJump = true;
     }
-    }
-
-
-   
-    void ResetJump()
-    {
-        canJump = false;
-        jumpValue = 0;
-    }
-
 
     void OnDrawGizmoSelected(){
         Gizmos.color = Color.green;
