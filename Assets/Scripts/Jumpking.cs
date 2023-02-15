@@ -26,11 +26,13 @@ public class Jumpking : MonoBehaviour
     private bool isJumping = false;
 
     private Rigidbody2D rb;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
         dir = 1;
     }
 
@@ -54,6 +56,12 @@ public class Jumpking : MonoBehaviour
 
             transform.localScale = new Vector3(dir, 1f, 1f);
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                anim.SetTrigger("squat");
+            }
+
+
             if (Input.GetKey(KeyCode.Space))
             {
                 rb.velocity = new Vector3(0f, 0f, 0f);
@@ -62,6 +70,7 @@ public class Jumpking : MonoBehaviour
             }
             else if (Input.GetButtonUp("Jump"))
             {
+                anim.SetTrigger("jump");
                 isJumping = true;
 
                 if (jumpStrength > maxYStrenth)
@@ -90,6 +99,13 @@ public class Jumpking : MonoBehaviour
 
             if(rb.velocity.y <= 0 && isJumping)
                 isJumping = false;
+        }else
+        {
+            if(rb.velocity.y < 0)
+            {
+                anim.SetTrigger("fall");
+            }
+            
         }
     }
 
