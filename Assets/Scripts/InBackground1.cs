@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfiniteBackground : MonoBehaviour
+public class InBackground1 : MonoBehaviour
 {
     [SerializeField]
     // Start is called before the first frame update
     GameObject camera;
-    float imageHeight = 10f;
+    float imageHeight = 1f;
     float startPosition;
     [SerializeField]
     float parallaxEffect = 0.3f;
