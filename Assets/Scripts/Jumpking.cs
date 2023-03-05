@@ -50,6 +50,8 @@ public class Jumpking : MonoBehaviour
         if(isGrounded)
         {
             float input = Input.GetAxisRaw("Horizontal");
+
+            anim.SetFloat("walk",Mathf.Abs(input));
             
             if(input > 0 ) dir = 1;
             else if(input < 0) dir = -1;
