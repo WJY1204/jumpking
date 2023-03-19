@@ -20,7 +20,8 @@ public class Jumpking : MonoBehaviour
 
     public float maxXStrenth, maxYStrenth;
     
-    public float bounceForce = 10.0f;
+    public float horizontalBounceForce = 10.0f;
+    public float verticalBounceForce = 10.0f;
     public string bounceTag = "Thorn";
     private float jumpStrength;
     private float jumpX;
@@ -137,8 +138,12 @@ public class Jumpking : MonoBehaviour
         if (other.gameObject.CompareTag(bounceTag))
         {
             Vector2 collisionObjectDirection = other.transform.position - transform.position;
-            Vector2 bounceDirection = -collisionObjectDirection.normalized;
-            rb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
+            Vector2 horizontalBounceDirection = -collisionObjectDirection.normalized;
+            horizontalBounceDirection.y = 0; // Remove vertical component
+            Vector2 verticalBounceDirection = Vector2.up;
+
+            Vector2 finalBounceDirection = (horizontalBounceDirection * horizontalBounceForce) + (verticalBounceDirection * verticalBounceForce);
+            rb.AddForce(finalBounceDirection, ForceMode2D.Impulse);
         }
     }
 
