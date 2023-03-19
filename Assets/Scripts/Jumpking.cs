@@ -20,6 +20,8 @@ public class Jumpking : MonoBehaviour
 
     public float maxXStrenth, maxYStrenth;
     
+    public float bounceForce = 10.0f;
+    public string bounceTag = "Thorn";
     private float jumpStrength;
     private float jumpX;
     private int dir = 1;
@@ -27,6 +29,8 @@ public class Jumpking : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -128,5 +132,17 @@ public class Jumpking : MonoBehaviour
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), new Vector2(0.9f, 0.2f));
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag(bounceTag))
+        {
+            Vector2 collisionObjectDirection = other.transform.position - transform.position;
+            Vector2 bounceDirection = -collisionObjectDirection.normalized;
+            rb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
+        }
+    }
 
+    
+
+    
 }
