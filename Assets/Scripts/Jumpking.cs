@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Jumpking : MonoBehaviour
 {
@@ -37,9 +36,7 @@ public class Jumpking : MonoBehaviour
 
     private bool isDelaying = false;
 
-    [SerializeField]
-    private Image jumpAmountbar;
-    private float jumpInput;
+    [SerializeField]private EnergyUI energyUI;
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +91,7 @@ public class Jumpking : MonoBehaviour
                 jumpX += (Time.deltaTime * jumpXMultiplier * 2);
 
                 jumpAmount = jumpStrength;
-                jumpAmountbar.fillAmount = jumpAmount/maxYStrenth;
+                energyUI.UpdateEnergybar(jumpAmount/maxYStrenth) ;
             }
             else if (Input.GetButtonUp("Jump"))
             {
@@ -161,7 +158,7 @@ public class Jumpking : MonoBehaviour
                 jumpStrength = 0;
                 jumpX = 0;
                 jumpAmount = 0;
-                jumpAmountbar.fillAmount = 0;
+                energyUI.UpdateEnergybar(0);
             }
         } 
         if(isGrounded)
@@ -189,3 +186,4 @@ public class Jumpking : MonoBehaviour
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), new Vector2(0.9f, 0.2f));
     }
 }
+
