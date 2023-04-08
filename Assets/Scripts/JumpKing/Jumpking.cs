@@ -39,6 +39,8 @@ public class Jumpking : MonoBehaviour
 
     private bool isDelaying = false;
 
+    private bool forceStopped = false;
+
     [SerializeField]private EnergyUI energyUI;
 
     // Start is called before the first frame update
@@ -53,6 +55,9 @@ public class Jumpking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        if(forceStopped)
+            return;
+
         if(energyUI.InTransition)
             return;
 
@@ -142,6 +147,9 @@ public class Jumpking : MonoBehaviour
 
     private void FixedUpdate() 
     {
+        if(forceStopped)
+            return;
+            
         if(isDelaying)
             return;
         
@@ -196,6 +204,10 @@ public class Jumpking : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            forceStopped = true;
+        }
         if (other.gameObject.CompareTag(respawnTag))
         {
             spawnPonit = other.GetComponent<RespawnObject>().GetSpawnPoint;
