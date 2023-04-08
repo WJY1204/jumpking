@@ -18,6 +18,6 @@ public class LevelWater : MonoBehaviour
      public void GameStart()
     {
         print("GameStart");
-        Application.LoadLevel("SampleScene");
+        Application.LoadLevel("Level1");
     }
 }

@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] private Button[] levelBtns;
     [SerializeField] private Vector2[] levelPositions;
     [SerializeField] private RectTransform content;
     [SerializeField] private float lerpDuration = 1f;
+    [SerializeField] private GameObject maskPanel;
 
     public ScrollRect scrollRect; // The ScrollRect component to be modified
     
@@ -19,9 +21,27 @@ public class MenuManager : MonoBehaviour
         lastUnlockPos = PlayerPrefs.GetInt("lastUnlockPos", 0);   
 
         content.anchoredPosition = levelPositions[currentPos];
-        ScrollToPoint(currentPos, lastUnlockPos);
 
-        PlayerPrefs.SetInt("CurrentUnlockPos", lastUnlockPos);
+        if(currentPos != lastUnlockPos)
+        {
+            ScrollToPoint(currentPos, lastUnlockPos);
+            PlayerPrefs.SetInt("CurrentUnlockPos", lastUnlockPos);
+        }
+
+        ActiveButtons();
+    }
+
+    public void ActiveButtons()
+    {
+        int i = 0;
+        for(i=0;i<=lastUnlockPos;i++)
+        {
+            levelBtns[i].interactable = true;
+        }
+        for(;i<levelBtns.Length;i++)
+        {
+            levelBtns[i].interactable = false;
+        }
     }
 
     public void ScrollToPoint(int oldVal, int newVal)
@@ -31,6 +51,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator ScrollCoroutine(int oldVal,int newVal)
     {
+        maskPanel.SetActive(true);
         scrollRect.vertical = false;
         yield return new WaitForSeconds(1f);
 
@@ -50,5 +71,6 @@ public class MenuManager : MonoBehaviour
         }
 
         scrollRect.vertical = true;
+        maskPanel.SetActive(false);
     }
 }
