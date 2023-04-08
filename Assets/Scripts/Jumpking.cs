@@ -29,6 +29,10 @@ public class Jumpking : MonoBehaviour
     public bool isFalling = false;
     public bool isBouncing = false;
 
+    public string bounceTag = "Thorn";
+    public float horizontalBounceForce = 10.0f;
+    public float verticalBounceForce = 10.0f;
+
     private float jumpAmount;
 
     private Rigidbody2D rb;
@@ -143,7 +147,6 @@ public class Jumpking : MonoBehaviour
         {
             if(isFronted)
             {
-                Debug.Log("bo");
                 isBouncing = true;
                 rb.AddForce(
                     new Vector2(-rb.velocity.x*(jumpX/2), rb.velocity.y),  
@@ -184,6 +187,19 @@ public class Jumpking : MonoBehaviour
     void OnDrawGizmoSelected(){
         Gizmos.color = Color.green;
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), new Vector2(0.9f, 0.2f));
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag(bounceTag))
+        {
+            Vector2 collisionObjectDirection = other.transform.position - transform.position;
+            Vector2 horizontalBounceDirection = -collisionObjectDirection.normalized;
+            horizontalBounceDirection.y = 0; // Remove vertical component
+            Vector2 verticalBounceDirection = Vector2.up;
+            Vector2 finalBounceDirection = (horizontalBounceDirection * horizontalBounceForce) + (verticalBounceDirection * verticalBounceForce);
+            rb.AddForce(finalBounceDirection, ForceMode2D.Impulse);
+        }
     }
 }
 
