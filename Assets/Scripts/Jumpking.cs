@@ -29,10 +29,9 @@ public class Jumpking : MonoBehaviour
     public bool isFalling = false;
     public bool isBouncing = false;
 
+    public string respawnTag = "Respawn";
     public string bounceTag = "Thorn";
-    public float horizontalBounceForce = 10.0f;
-    public float verticalBounceForce = 10.0f;
-
+    public Vector2 spawnPonit = Vector2.zero;
     private float jumpAmount;
 
     private Rigidbody2D rb;
@@ -54,6 +53,9 @@ public class Jumpking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        if(energyUI.InTransition)
+            return;
+
        isGrounded = Physics2D.OverlapCircle(
             groundCheck[0].position,
             checkRadius,
@@ -142,7 +144,10 @@ public class Jumpking : MonoBehaviour
     {
         if(isDelaying)
             return;
-
+        
+        if(energyUI.InTransition)
+            return;
+        
         if(isJumping)
         {
             if(isFronted)
@@ -191,14 +196,15 @@ public class Jumpking : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag(respawnTag))
+        {
+            spawnPonit = other.GetComponent<RespawnObject>().GetSpawnPoint;
+        }
         if (other.gameObject.CompareTag(bounceTag))
         {
-            Vector2 collisionObjectDirection = other.transform.position - transform.position;
-            Vector2 horizontalBounceDirection = -collisionObjectDirection.normalized;
-            horizontalBounceDirection.y = 0; // Remove vertical component
-            Vector2 verticalBounceDirection = Vector2.up;
-            Vector2 finalBounceDirection = (horizontalBounceDirection * horizontalBounceForce) + (verticalBounceDirection * verticalBounceForce);
-            rb.AddForce(finalBounceDirection, ForceMode2D.Impulse);
+            energyUI.UpdateTransiton();
+            rb.velocity = Vector2.zero;
+            transform.position = spawnPonit;
         }
     }
 }
