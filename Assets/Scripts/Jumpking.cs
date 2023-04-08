@@ -9,7 +9,7 @@ public class Jumpking : MonoBehaviour
     public bool isGrounded;
     public bool isFronted;
     public float checkRadius = 0.2f;
-    public Transform groundCheck;
+    public Transform[] groundCheck;
     public Transform frontCheck;
     public LayerMask groundMask;
 
@@ -54,10 +54,18 @@ public class Jumpking : MonoBehaviour
     void Update()
     {   
        isGrounded = Physics2D.OverlapCircle(
-            groundCheck.position,
+            groundCheck[0].position,
             checkRadius,
             groundMask
-        );
+        ) || Physics2D.OverlapCircle(
+            groundCheck[1].position,
+            checkRadius,
+            groundMask
+        ) || Physics2D.OverlapCircle(
+            groundCheck[2].position,
+            checkRadius,
+            groundMask
+        ) ;
 
         isFronted = Physics2D.OverlapCircle(
             frontCheck.position,
