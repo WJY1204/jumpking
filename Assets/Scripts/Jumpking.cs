@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Jumpking : MonoBehaviour
 {
     [Header("Ground Checks")]
     public bool isGrounded;
+    public bool isFronted;
     public float checkRadius = 0.2f;
     public Transform groundCheck;
+    public Transform frontCheck;
     public LayerMask groundMask;
 
     [Header("Mat")]
@@ -19,19 +22,24 @@ public class Jumpking : MonoBehaviour
     public float jumpXMultiplier;
 
     public float maxXStrenth, maxYStrenth;
-    
-    public float horizontalBounceForce = 10.0f;
-    public float verticalBounceForce = 10.0f;
-    public string bounceTag = "Thorn";
+
+    private int dir = 1;
     private float jumpStrength;
     private float jumpX;
-    private int dir = 1;
-    private bool isJumping = false;
+    public bool isJumping = false;
+    public bool isFalling = false;
+    public bool isBouncing = false;
+
+    private float jumpAmount;
 
     private Rigidbody2D rb;
     private Animator anim;
 
-    
+    private bool isDelaying = false;
+
+    [SerializeField]
+    private Image jumpAmountbar;
+    private float jumpInput;
 
     // Start is called before the first frame update
     void Start()
@@ -39,41 +47,46 @@ public class Jumpking : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
         dir = 1;
+        isBouncing = false;
     }
 
     // Update is called once per frame
     void Update()
     {   
-        isGrounded = Physics2D.OverlapCircle(
+       isGrounded = Physics2D.OverlapCircle(
             groundCheck.position,
             checkRadius,
             groundMask
         );
-        
-        // ChangeMat();
+
+        isFronted = Physics2D.OverlapCircle(
+            frontCheck.position,
+            0.1f,
+            groundMask
+        );
 
         if(isGrounded)
         {
             float input = Input.GetAxisRaw("Horizontal");
-
-            anim.SetFloat("walk",Mathf.Abs(input));
             
             if(input > 0 ) dir = 1;
             else if(input < 0) dir = -1;
 
             transform.localScale = new Vector3(dir, 1f, 1f);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
+                jumpAmount = 0;
                 anim.SetTrigger("squat");
+                rb.velocity = Vector2.zero;
             }
-
-
-            if (Input.GetKey(KeyCode.Space))
+            else if (Input.GetKey(KeyCode.Space))
             {
-                rb.velocity = new Vector3(0f, 0f, 0f);
                 jumpStrength += (Time.deltaTime * jumpYMultiplier * 2);
                 jumpX += (Time.deltaTime * jumpXMultiplier * 2);
+
+                jumpAmount = jumpStrength;
+                jumpAmountbar.fillAmount = jumpAmount/maxYStrenth;
             }
             else if (Input.GetButtonUp("Jump"))
             {
@@ -86,33 +99,68 @@ public class Jumpking : MonoBehaviour
                     jumpStrength = 100;
                 if (jumpX > maxXStrenth)
                     jumpX = maxXStrenth;
-                
+                    
                 rb.AddForce(
                     new Vector2(dir*jumpX, jumpStrength), 
                     ForceMode2D.Impulse
                 );
-                // rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
-                
-                Debug.Log("X velocity : " + rb.velocity.x);
-                Debug.Log(jumpStrength);
-                
-                jumpX = 0f;
-                jumpStrength = 0f;
+                StartCoroutine(DelaySec());
             }
             else if(isJumping == false)
             {
+                anim.SetFloat("walk",Mathf.Abs(input));
                 rb.velocity = new Vector2(activeMoveSpeed * input,rb.velocity.y);
             }
-
-            if(rb.velocity.y <= 0 && isJumping)
-                isJumping = false;
-        }else
+        }
+        else
         {
-            if(rb.velocity.y < 0)
+            if(rb.velocity.y < 0 && isFalling == false)
             {
+                isFalling = true;
                 anim.SetTrigger("fall");
+            }   
+        }
+    }
+
+    IEnumerator DelaySec()
+    {
+        isDelaying = true;
+        yield return new WaitForSeconds(0.1f);
+        isDelaying = false;
+    }
+
+    private void FixedUpdate() 
+    {
+        if(isDelaying)
+            return;
+
+        if(isJumping)
+        {
+            if(isFronted)
+            {
+                Debug.Log("bo");
+                isBouncing = true;
+                rb.AddForce(
+                    new Vector2(-rb.velocity.x*(jumpX/2), rb.velocity.y),  
+                    ForceMode2D.Impulse
+                );
             }
-            
+            if(isGrounded)
+            {
+                isJumping = false;
+                isBouncing = false;
+
+                jumpStrength = 0;
+                jumpX = 0;
+                jumpAmount = 0;
+                jumpAmountbar.fillAmount = 0;
+            }
+        } 
+        if(isGrounded)
+        {
+            isFalling = false;
+            anim.SetTrigger("exit");
+            jumpAmount = 0;
         }
     }
 
@@ -132,22 +180,4 @@ public class Jumpking : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawCube(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), new Vector2(0.9f, 0.2f));
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag(bounceTag))
-        {
-            Vector2 collisionObjectDirection = other.transform.position - transform.position;
-            Vector2 horizontalBounceDirection = -collisionObjectDirection.normalized;
-            horizontalBounceDirection.y = 0; // Remove vertical component
-            Vector2 verticalBounceDirection = Vector2.up;
-
-            Vector2 finalBounceDirection = (horizontalBounceDirection * horizontalBounceForce) + (verticalBounceDirection * verticalBounceForce);
-            rb.AddForce(finalBounceDirection, ForceMode2D.Impulse);
-        }
-    }
-
-    
-
-    
 }
