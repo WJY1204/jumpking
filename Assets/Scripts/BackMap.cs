@@ -19,6 +19,7 @@ public class BackMap : MonoBehaviour
     public void GameStart()
     {
         print("GameStart");
-        Application.LoadLevel("Choose");
+        Application.LoadLevel("Menu");
     }
+    
 }

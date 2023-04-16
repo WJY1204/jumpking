@@ -18,6 +18,6 @@ public class FirstSkip : MonoBehaviour
     public void GameStart()
     {
         print("GameStart");
-        Application.LoadLevel("Choose");
+        Application.LoadLevel("Menu");
     }
 }

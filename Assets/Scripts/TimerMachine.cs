@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -7,7 +6,8 @@ using UnityEngine.UI;
 
 public class TimerMachine : MonoBehaviour
 {
-    public Text NewTime;
+    public string NewTime;
+     public Text TimeOnGame;
     
 
     //當前秒數
@@ -31,8 +31,9 @@ public class TimerMachine : MonoBehaviour
     {
        Timer += Time.deltaTime;
        Debug.Log(Timer);
-       NewTime.text = Timer.ToString();
-
+       NewTime = Timer.ToString("0.00");
+       TimeOnGame.text = NewTime;
+       GetComponent<Text>().text = " " + Timer;
        
     }
     
