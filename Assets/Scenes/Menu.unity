@@ -762,8 +762,8 @@ MonoBehaviour:
   - {fileID: 442405655}
   - {fileID: 654914863}
   levelPositions:
-  - {x: 0, y: 943.4029}
-  - {x: 0, y: 380}
+  - {x: 0, y: 340}
+  - {x: 0, y: 0}
   content: {fileID: 1690744338}
   lerpDuration: 0.75
   maskPanel: {fileID: 224908418}
