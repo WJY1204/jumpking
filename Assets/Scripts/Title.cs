@@ -10,6 +10,6 @@ public class Title : MonoBehaviour
     public void GameStart()
     {
         print("GameStart");
-        Application.LoadLevel("FirstVideo");
+        Application.LoadLevel("FirstMovie");
     }
 }
