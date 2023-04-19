@@ -6,34 +6,38 @@ using UnityEngine.UI;
 
 public class TimerMachine : MonoBehaviour
 {
-    public string NewTime;
-     public Text TimeOnGame;
+    public string newTime;
+     public TMP_Text timeOnGame;
     
 
     //當前秒數
-    public float Timer;
+    public float timer;
     //允許碼表計時
-    public bool AllowRun;
+    public bool allowRun;
     
+    private void Awake() 
+    {
+        timeOnGame = GetComponent<TMP_Text>();
     
+    }
     
 
     void Start()
     {
-      Timer = 0;  
+      timer = 0;  
     }
+
 
     
     void Update()
     {
 
-    if(AllowRun)
+    if(allowRun)
     {
-       Timer += Time.deltaTime;
-       Debug.Log(Timer);
-       NewTime = Timer.ToString("0.00");
-       TimeOnGame.text = NewTime;
-       GetComponent<Text>().text = " " + Timer;
+       timer += Time.deltaTime;
+       Debug.Log(timer);
+       newTime = timer.ToString("0.00");
+       timeOnGame.text = newTime;
        
     }
     
@@ -43,20 +47,20 @@ public class TimerMachine : MonoBehaviour
     //初始化(歸零)
     public void Init()
     {
-    Timer = 0;
-    AllowRun = false;
+    timer = 0;
+    allowRun = false;
     }
 
     //讓碼表開始計時
     public void Run()
     {
-        AllowRun = true;
+        allowRun = true;
     }
 
     //暫停
     public void Pause()
     {
-        AllowRun = false;
+        allowRun = false;
     }
     
 }
