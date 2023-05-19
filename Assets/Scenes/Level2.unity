@@ -967,16 +967,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805111337833832684, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c735293d3c9426a42a617d5516be40fa, type: 3}
+    - target: {fileID: 2805111337833832684, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
       propertyPath: m_Color.b
-      value: 0.3803922
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2805111337833832684, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
       propertyPath: m_Color.g
-      value: 0.6313726
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2805111337833832684, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
       propertyPath: m_Color.r
-      value: 0.29803923
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2805111337833832685, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
       propertyPath: m_LocalPosition.x
@@ -994,6 +998,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gameplayer
       objectReference: {fileID: 0}
+    - target: {fileID: 4767953228411187336, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767953228411187342, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7c84aaf89580e5847916ee2336057018, type: 3}
+    - target: {fileID: 4767953228411187342, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Color.b
+      value: 0.895594
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767953228411187342, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Color.g
+      value: 0.994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767953228411187342, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Color.r
+      value: 0.91921145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767953229278970547, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4ecf15c1f90c4b64fa35a6902bc6a33c, type: 3}
+    - target: {fileID: 4767953229376123029, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767953229376123035, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 38beb1feaba2cf44c9cd7fb8bdbd535b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
 --- !u!1 &360878209
@@ -1950,7 +1986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6914837, y: -0.28378773, z: -10}
+  m_LocalPosition: {x: -0.6914913, y: -0.2873826, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
