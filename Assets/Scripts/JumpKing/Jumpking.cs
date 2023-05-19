@@ -31,17 +31,24 @@ public class Jumpking : MonoBehaviour
 
     public string respawnTag = "Respawn";
     public string bounceTag = "Thorn";
+    public string bugTag = "Bug";
     public Vector2 spawnPonit = Vector2.zero;
     private float jumpAmount;
 
     private Rigidbody2D rb;
     private Animator anim;
 
-    private bool isDelaying = false;
+    private Vector2 worldSpawnPoint;
 
+    private bool isDelaying = false;
     private bool forceStopped = false;
 
     [SerializeField]private EnergyUI energyUI;
+
+    private void Awake() 
+    {
+        worldSpawnPoint = transform.position;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -217,6 +224,12 @@ public class Jumpking : MonoBehaviour
             energyUI.UpdateTransiton();
             rb.velocity = Vector2.zero;
             transform.position = spawnPonit;
+        }
+        if(other.gameObject.CompareTag(bugTag))
+        {
+            energyUI.UpdateTransiton();
+            rb.velocity = Vector2.zero;
+            transform.position = worldSpawnPoint;
         }
     }
 }
