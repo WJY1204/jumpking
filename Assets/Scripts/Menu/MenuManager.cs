@@ -31,6 +31,16 @@ public class MenuManager : MonoBehaviour
         ActiveButtons();
     }
 
+    public void LoadScene(string name)
+    {
+        if(name == "Level1")
+            SceneTransitionManager.TriggerSceneTransition("Level1", 1f);
+        else if(PlayerPrefs.GetInt(name+" Video", 0) == 0)
+            SceneTransitionManager.TriggerSceneTransition(name+" Video", 1f);
+        else
+            SceneTransitionManager.TriggerSceneTransition(name, 1f);
+    }
+
     public void ActiveButtons()
     {
         int i = 0;

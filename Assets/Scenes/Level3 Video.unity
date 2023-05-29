@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 246643925}
-  animationName: Level3OP
+  animationName: Level3 Video
   nextLevel: Level3
 --- !u!1 &651211222
 GameObject:

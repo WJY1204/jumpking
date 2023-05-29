@@ -24,9 +24,11 @@ public class VideoPlayerEndingHandler : MonoBehaviour
             // Example: Load a new scene or display a UI element
             // SceneManager.LoadScene("NextScene");
             // endScreenUI.SetActive(true);
-            SceneTransitionManager.TriggerSceneTransition(nextLevel, 1f);
+            
+                
 
             PlayerPrefs.SetInt(animationName, 1);
+            SceneTransitionManager.TriggerSceneTransition(nextLevel, 1f);
         }
     }
 
