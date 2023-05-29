@@ -15,6 +15,9 @@ public class MenuManager : MonoBehaviour
     
     private int currentPos, lastUnlockPos;
 
+private void OnEnable() {
+        Time.timeScale = 1;
+    }
     private void Awake() 
     {
         currentPos = PlayerPrefs.GetInt("CurrentUnlockPos", 0);    
