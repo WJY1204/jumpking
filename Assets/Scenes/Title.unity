@@ -915,8 +915,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -347}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -397}
+  m_SizeDelta: {x: -375.2235, y: -222.3547}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &578899698
 Animator:
@@ -1621,8 +1621,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -367}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -397}
+  m_SizeDelta: {x: -514.1953, y: -382.1722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094683879
 MonoBehaviour:
@@ -1931,7 +1931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music: {fileID: 0}
   Audio_Touch: {fileID: 0}
-  Audio_Finish: {fileID: 0}
 --- !u!1 &1299999057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music: {fileID: 0}
   Audio_Touch: {fileID: 0}
-  Audio_Finish: {fileID: 0}
 --- !u!114 &1491564241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2824,7 +2822,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music: {fileID: 1674147467}
   Audio_Touch: {fileID: 1270013701}
-  Audio_Finish: {fileID: 0}
 --- !u!1 &1730449610
 GameObject:
   m_ObjectHideFlags: 0
