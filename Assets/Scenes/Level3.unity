@@ -1064,6 +1064,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &290769971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290769973}
+  - component: {fileID: 290769972}
+  m_Layer: 0
+  m_Name: AudioManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &290769972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290769971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe0fc31deeb3394aba754af8a9da2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &290769973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290769971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 227.50928, y: 175.53331, z: -4.374097}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &313128523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1119,6 +1163,26 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 631b16379c967d64abac7a1dc36bdbc5, type: 2}
+    - target: {fileID: 2805111337833832682, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: clips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805111337833832682, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 11b4553e00bb2fa419569097e754a4ae, type: 3}
+    - target: {fileID: 2805111337833832682, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: clips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ec6b33db0e0113c418b65b9cd8bdbce7, type: 3}
+    - target: {fileID: 2805111337833832682, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: clips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 706f87998cb2423489b7fa91d764cfae, type: 3}
+    - target: {fileID: 2805111337833832682, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
+      propertyPath: clips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42aaea4475ea14f4c9d8640141c647d9, type: 3}
     - target: {fileID: 2805111337833832684, guid: 7af845223322c17468b89abba8ad4b45, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2147,7 +2211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6914951, y: -0.28928947, z: -10}
+  m_LocalPosition: {x: -0.69148844, y: -0.28595257, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10594,7 +10658,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 43cac8b4e5b73154a97be0159f696647, type: 3}
     - target: {fileID: 1550482780, guid: 8889924c51c1643a1a7775c4d19f104c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1550482783, guid: 8889924c51c1643a1a7775c4d19f104c, type: 3}
       propertyPath: m_SortingOrder
@@ -10884,7 +10948,7 @@ PrefabInstance:
     - target: {fileID: 4379952605629041708, guid: 8457e619be75288489eacc71ea789b05, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8e302c9f5aac7524e848e3185d1dd285, type: 3}
+      objectReference: {fileID: 21300000, guid: 9a762716a6355014f9e37323e316e89b, type: 3}
     - target: {fileID: 4379952605629041715, guid: 8457e619be75288489eacc71ea789b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

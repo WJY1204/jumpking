@@ -33,6 +33,8 @@ public class Jumpking : MonoBehaviour
     public string bounceTag = "Thorn";
     public string bugTag = "Bug";
     public Vector2 spawnPonit = Vector2.zero;
+    public AudioClip[] clips;
+    public AudioClip thorn;
     private float jumpAmount;
 
     private Rigidbody2D rb;
@@ -101,6 +103,7 @@ public class Jumpking : MonoBehaviour
             {
                 jumpAmount = 0;
                 anim.SetTrigger("squat");
+                
                 rb.velocity = Vector2.zero;
             }
             else if (Input.GetKey(KeyCode.Space))
@@ -114,6 +117,7 @@ public class Jumpking : MonoBehaviour
             else if (Input.GetButtonUp("Jump"))
             {
                 anim.SetTrigger("jump");
+               
                 isJumping = true;
 
                 if (jumpStrength > maxYStrenth)
@@ -132,6 +136,7 @@ public class Jumpking : MonoBehaviour
             else if(isJumping == false)
             {
                 anim.SetFloat("walk",Mathf.Abs(input));
+                
                 rb.velocity = new Vector2(activeMoveSpeed * input,rb.velocity.y);
             }
         }
@@ -145,6 +150,11 @@ public class Jumpking : MonoBehaviour
         }
     }
 
+    public void PlayEffect(int id) 
+        {
+            AudioManager.Instance.PlayClip(clips[id]);
+        }
+    
     IEnumerator DelaySec()
     {
         isDelaying = true;
@@ -221,6 +231,7 @@ public class Jumpking : MonoBehaviour
         }
         if (other.gameObject.CompareTag(bounceTag))
         {
+            AudioManager.Instance.PlayClip(thorn);
             energyUI.UpdateTransiton();
             rb.velocity = Vector2.zero;
             transform.position = spawnPonit;
