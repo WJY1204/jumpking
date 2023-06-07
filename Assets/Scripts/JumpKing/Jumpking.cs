@@ -35,6 +35,7 @@ public class Jumpking : MonoBehaviour
     public Vector2 spawnPonit = Vector2.zero;
     public AudioClip[] clips;
     public AudioClip thorn;
+    public AudioClip swirl;
     private float jumpAmount;
 
     private Rigidbody2D rb;
@@ -152,6 +153,8 @@ public class Jumpking : MonoBehaviour
 
     public void PlayEffect(int id) 
         {
+            if (forceStopped)
+            return;
             AudioManager.Instance.PlayClip(clips[id]);
         }
     
@@ -223,6 +226,7 @@ public class Jumpking : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Finish"))
         {
+            AudioManager.Instance.PlayClip(swirl);
             forceStopped = true;
         }
         if (other.gameObject.CompareTag(respawnTag))
