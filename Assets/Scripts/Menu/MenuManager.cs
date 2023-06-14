@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    
     [SerializeField] private Button[] levelBtns;
     [SerializeField] private Vector2[] levelPositions;
     [SerializeField] private RectTransform content;
@@ -14,6 +16,7 @@ public class MenuManager : MonoBehaviour
     public ScrollRect scrollRect; // The ScrollRect component to be modified
     
     private int currentPos, lastUnlockPos;
+
 
 private void OnEnable() {
         Time.timeScale = 1;
@@ -33,7 +36,30 @@ private void OnEnable() {
 
         ActiveButtons();
     }
+void Update()
+{
+    if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.P))
+    {
+         ResetGameRecord();
+         LoadFirstScene();
+    }
+}
+void ResetGameRecord()
+{
+    // 清除PlayerPrefs中的所有数据
+    PlayerPrefs.DeleteAll();
+    PlayerPrefs.Save();
 
+    // 执行其他重置游戏记录的操作
+    // 这里可以是重置得分、重置关卡等等
+
+    Debug.Log("重置游戏记录！");
+}
+void LoadFirstScene()
+{
+    // 加载第一个场景
+    SceneManager.LoadScene(0);
+}
     public void LoadScene(string name)
     {
         if(name == "Level1")

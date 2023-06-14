@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isOpen = false;
+    public void OpenExit(GameObject exit)
+    {
+
+        if (isOpen == false)
+        {
+            exit.SetActive(true);
+        }
+        else
+        {
+            exit.SetActive(false);
+        }
+
+        isOpen =!isOpen;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -41,3 +56,4 @@ public class GameManager : MonoBehaviour
        
     }
 }
+

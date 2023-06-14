@@ -10,6 +10,18 @@ public class Goal : MonoBehaviour
     public GameObject goalCanvas;
 
     public TimerMachine timerMachine;
+
+    void Update()
+{
+    if (Input.GetKey(KeyCode.O) && Input.GetKey(KeyCode.P))
+    {
+        timerMachine.Pause();
+            time.text = (Mathf.Round(timerMachine.timer * 100f) / 100f).ToString();
+            PlayerPrefs.SetInt("lastUnlockPos", unlockNextLevel);
+            goalCanvas.SetActive(true); //開啟介面
+        Debug.Log("O和P同时按下！");
+    }
+}
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
